@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /Users/mhayes/Projects/vpm-tools-private 2>/dev/null)",
+      "Read(//Users/mhayes/Projects/vpm-tools-private/**)",
+      "Bash(ls -la /Users/mhayes/Projects/vpm.org 2>/dev/null)",
+      "Read(//Users/mhayes/Projects/vpm.org/**)",
+      "Bash(find /Users/mhayes/Projects -maxdepth 2 -type f -name \"*.json\" 2>/dev/null | grep -E \"\\(package|tsconfig\\)\" | head -20)",
+      "Read(//Users/mhayes/Projects/**)",
+      "Bash([ -d \"/Users/mhayes/Projects/$project/.git\" ])",
+      "Bash([ -f \"/Users/mhayes/Projects/$project/.gitignore\" ])",
+      "Bash([ -d \"/Users/mhayes/Projects/vpm.org/$dir/.git\" ])",
+      "Bash(rsync -a --exclude='.git' /Users/mhayes/Projects/vpm.org/early-childhood-education/ /Users/mhayes/Projects/vpm-web-tools-public/early-childhood-education/)",
+      "Bash(cp -r /Users/mhayes/Projects/vpm.org/impact-page /Users/mhayes/Projects/vpm-web-tools-public/)",
+      "Bash(cp -r /Users/mhayes/Projects/vpm.org/vpm-morning-monitor /Users/mhayes/Projects/vpm-web-tools-public/)",
+      "Bash(cp -r /Users/mhayes/Projects/vpm.org/watch-page /Users/mhayes/Projects/vpm-web-tools-public/)",
+      "Bash(cp -r /Users/mhayes/Projects/vpm.org/vpm-youtube-shorts /Users/mhayes/Projects/vpm-web-tools-public/)"
+    ]
+  }
+}

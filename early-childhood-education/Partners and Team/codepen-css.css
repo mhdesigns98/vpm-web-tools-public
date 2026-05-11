@@ -1,0 +1,497 @@
+/* ============================================ */
+/* EARLY CHILDHOOD COMMUNITY PARTNERS PAGE */
+/* CSS for CodePen - VPM Branded */
+/* ============================================ */
+
+/* Base Styles */
+body {
+    font-family: GT America, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #101820;
+}
+
+/* Main Container - Max Width 1280px */
+body > * {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Hero Section */
+.ecp-hero {
+    background: linear-gradient(135deg, #003865 0%, #6CACE4 100%);
+    color: #ffffff;
+    padding: 60px 40px;
+    margin-bottom: 40px;
+    border-radius: 8px;
+}
+
+.ecp-hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    font-family: GT America, sans-serif;
+    max-width: 900px;
+}
+
+@media only screen and (min-width: 768px) {
+    .ecp-hero h1 {
+        font-size: 3.4rem;
+    }
+}
+
+.ecp-hero p {
+    font-size: 1.6rem;
+    max-width: 800px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Stats Bar */
+.ecp-stats-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    background: #ffffff;
+    padding: 40px;
+    margin: -30px 0 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.16), 0 1px 4px -1px rgba(0, 0, 0, 0.04);
+}
+
+/* Responsive Grid - Stats */
+@media (min-width: 768px) {
+    .ecp-stats-bar {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.ecp-stat {
+    text-align: center;
+}
+
+.ecp-stat-number {
+    font-size: 3.6rem;
+    font-weight: 700;
+    color: #ff6f00;
+    display: block;
+    font-family: GT America, sans-serif;
+}
+
+@media only screen and (min-width: 768px) {
+    .ecp-stat-number {
+        font-size: 4.8rem;
+    }
+}
+
+.ecp-stat-label {
+    font-size: 1.4rem;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Section Headers */
+h2 {
+    color: #003865;
+    font-size: 2.4rem;
+    margin: 0 0 40px 0;
+    font-family: GT America, sans-serif;
+}
+
+@media only screen and (min-width: 768px) {
+    h2 {
+        font-size: 3.4rem;
+    }
+}
+
+/* Partners Grid */
+.ecp-partners-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+/* Responsive Grid - Partners */
+@media (min-width: 640px) {
+    .ecp-partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ecp-partners-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.ecp-partner-card {
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.16), 0 1px 4px -1px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f5f5f5;
+}
+
+.ecp-partner-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.1), 0 6px 20px -3px rgba(0, 0, 0, 0.2);
+}
+
+.ecp-partner-logo {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: #EDEDED;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.ecp-partner-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.ecp-partner-category {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ff6f00;
+    margin-bottom: 10px;
+}
+
+.ecp-partner-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #003865;
+    margin-bottom: 15px;
+    font-family: GT America, sans-serif;
+}
+
+.ecp-partner-description {
+    color: #666666;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    line-height: 1.6;
+}
+
+.ecp-partner-links {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    flex-wrap: wrap;
+}
+
+.ecp-partner-link {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+    font-family: GT America, sans-serif;
+}
+
+.ecp-partner-link.primary {
+    background: #003865;
+    color: #ffffff;
+}
+
+.ecp-partner-link.primary:hover {
+    background: #6CACE4;
+}
+
+.ecp-partner-link.secondary {
+    border: 2px solid #003865;
+    color: #003865;
+    background: #ffffff;
+}
+
+.ecp-partner-link.secondary:hover {
+    background: #003865;
+    color: #ffffff;
+}
+
+/* Team Section */
+.ecp-team-section {
+    background: #EDEDED;
+    padding: 60px 20px;
+    margin-bottom: 60px;
+    border-radius: 4px;
+}
+
+.ecp-team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Responsive Grid - Team */
+@media (min-width: 640px) {
+    .ecp-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ecp-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.ecp-team-card {
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.16), 0 1px 4px -1px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s;
+    border: 1px solid #f5f5f5;
+}
+
+.ecp-team-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.1), 0 6px 20px -3px rgba(0, 0, 0, 0.2);
+}
+
+.ecp-team-photo {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, #003865 0%, #6CACE4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.ecp-team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ecp-team-info {
+    padding: 25px;
+}
+
+.ecp-team-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #003865;
+    margin-bottom: 5px;
+    font-family: GT America, sans-serif;
+}
+
+.ecp-team-title {
+    color: #666666;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.ecp-team-bio {
+    color: #666666;
+    font-size: 1.6rem;
+    line-height: 1.6;
+}
+
+.ecp-team-contact {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f5f5f5;
+}
+
+.ecp-team-contact a {
+    color: #237bbd;
+    text-decoration: none;
+    font-size: 1.6rem;
+}
+
+.ecp-team-contact a:hover {
+    color: #125c8e;
+    text-decoration: underline;
+}
+
+/* Community Stories */
+.ecp-stories-section {
+    margin-bottom: 60px;
+}
+
+.ecp-stories-section h2 {
+    color: #003865;
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    font-family: GT America, sans-serif;
+}
+
+@media only screen and (min-width: 768px) {
+    .ecp-stories-section h2 {
+        font-size: 3.4rem;
+    }
+}
+
+.ecp-stories-section > p {
+    color: #666666;
+    font-size: 1.6rem;
+    margin-bottom: 40px;
+}
+
+.ecp-stories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Responsive Grid - Stories */
+@media (min-width: 640px) {
+    .ecp-stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ecp-stories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.ecp-story-card {
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.16), 0 1px 4px -1px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s;
+    border: 1px solid #f5f5f5;
+}
+
+.ecp-story-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.1), 0 6px 20px -3px rgba(0, 0, 0, 0.2);
+}
+
+.ecp-story-image {
+    width: 100%;
+    height: 200px;
+    background: #EDEDED;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.ecp-story-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ecp-play-button {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 56, 101, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.5rem;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.ecp-play-button:hover {
+    background: #003865;
+    transform: scale(1.1);
+}
+
+.ecp-story-content {
+    padding: 25px;
+}
+
+.ecp-story-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #003865;
+    margin-bottom: 15px;
+    font-family: GT America, sans-serif;
+}
+
+.ecp-story-description {
+    color: #666666;
+    font-size: 1.6rem;
+    line-height: 1.6;
+}
+
+/* Utility Classes */
+.ecp-text-center { 
+    text-align: center; 
+}
+
+.ecp-mb-20 { 
+    margin-bottom: 20px; 
+}
+
+.ecp-mb-40 { 
+    margin-bottom: 40px; 
+}
+
+/* Additional Responsive Adjustments */
+@media (max-width: 639px) {
+    .ecp-hero {
+        padding: 40px 20px;
+    }
+    
+    .ecp-hero h1 {
+        font-size: 2.4rem;
+    }
+    
+    .ecp-stats-bar {
+        padding: 30px 20px;
+        margin: -20px 0 30px;
+    }
+    
+    .ecp-team-section,
+    .ecp-stories-section {
+        padding: 40px 20px;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+    .ecp-hero {
+        padding: 50px 30px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ecp-hero {
+        padding: 60px 40px;
+    }
+    
+    body > * {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}

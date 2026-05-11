@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VPM Testimonials Widget (Shadow DOM)</title>
+</head>
+<body>
+  <!-- Use the custom element anywhere on the page -->
+  <testimonials-widget></testimonials-widget>
+
+  <template id="testimonials-widget-template">
+    <style>
+      /* SVG Wave Section Break */
+      .wave-top {
+        display: block;
+        width: 100%;
+        height: 60px;
+        margin-bottom: -1px;
+      }
+      /* VPM Brand Colors and Variables */
+      :host, .testimonials-section {
+        --vpm-navy-blue: #003865;
+        --vpm-light-blue: #6CACE4;
+        --vpm-black: #101820;
+        --vpm-gray: #B2B4B2;
+        --vpm-red: #EE2737;
+        --vpm-chartreuse: #E0E721;
+        --space-xs: 0.25rem;
+        --space-sm: 0.5rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2rem;
+        --space-2xl: 3rem;
+        --space-3xl: 4rem;
+        --space-4xl: 5rem;
+        --space-5xl: 6rem;
+        --font-primary: 'GT America', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        --font-size-sm: 0.875rem;
+        --font-size-base: 1rem;
+        --font-size-lg: 1.125rem;
+        --font-size-xl: 1.25rem;
+        --font-size-2xl: 1.5rem;
+        --font-size-3xl: 1.875rem;
+        --font-size-4xl: 2.25rem;
+        --font-size-5xl: 3rem;
+        --font-size-6xl: 3.75rem;
+        --line-height-tight: 1.25;
+        --line-height-normal: 1.5;
+        --line-height-relaxed: 1.75;
+        --tracking-tight: -0.025em;
+        --tracking-normal: 0;
+        --tracking-wide: 0.025em;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .testimonials-section {
+        padding: var(--space-5xl) var(--space-md);
+        max-width: 1400px;
+        margin: 0 auto;
+        background: #f9fafb;
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 2px 24px rgba(0,0,0,0.04);
+      }
+      .section-header {
+        text-align: center;
+        margin-bottom: var(--space-5xl);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      .section-title {
+        font-size: var(--font-size-5xl);
+        font-weight: 700;
+        color: var(--vpm-navy-blue);
+        margin-bottom: var(--space-lg);
+        letter-spacing: var(--tracking-tight);
+        line-height: var(--line-height-tight);
+      }
+      .section-subtitle {
+        font-size: var(--font-size-xl);
+        color: var(--vpm-gray);
+        max-width: 700px;
+        margin: 0 auto;
+        font-weight: 400;
+        line-height: var(--line-height-relaxed);
+      }
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-4xl);
+        align-items: start;
+      }
+      .testimonial-card {
+        background: white;
+        border-radius: 24px;
+        padding: var(--space-3xl);
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .testimonial-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 48px rgba(0, 0, 0, 0.12);
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-lg);
+        margin-bottom: var(--space-xl);
+      }
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .video-icon {
+        background: white;
+        border: 2px solid var(--vpm-navy-blue);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23003865'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+      }
+      .quote-icon {
+        background: white;
+        border: 2px solid var(--vpm-red);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23EE2737'%3E%3Cpath d='M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z'/%3E%3C/svg%3E");
+      }
+      .card-title {
+        font-size: var(--font-size-2xl);
+        font-weight: 700;
+        color: var(--vpm-black);
+        line-height: var(--line-height-tight);
+      }
+      .card-subtitle {
+        font-size: var(--font-size-base);
+        color: var(--vpm-gray);
+        margin-top: var(--space-xs);
+        font-weight: 400;
+      }
+      .video-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #000;
+        margin-bottom: var(--space-lg);
+      }
+      .video-track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        height: 100%;
+        width: 100%;
+      }
+      .video-item {
+        flex: 0 0 100%;
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .video-item iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 16px;
+      }
+      .quote-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: var(--space-lg);
+      }
+      .quote-track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        height: 100%;
+        width: 100%;
+      }
+      .quote-item {
+        flex: 0 0 100%;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+      .quote-item:hover {
+        transform: scale(1.02);
+      }
+      .quote-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 16px;
+      }
+      .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-lg);
+      }
+      .nav-dots {
+        display: flex;
+        gap: var(--space-sm);
+      }
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .nav-dot.active {
+        background: var(--vpm-navy-blue);
+        transform: scale(1.25);
+      }
+      .nav-arrow {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.06);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        color: var(--vpm-black);
+      }
+      .nav-arrow:hover {
+        background: rgba(0, 0, 0, 0.1);
+        transform: scale(1.1);
+      }
+      .nav-arrow::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+      }
+      .nav-arrow.prev::after {
+        border-right: 8px solid currentColor;
+        margin-right: 2px;
+      }
+      .nav-arrow.next::after {
+        border-left: 8px solid currentColor;
+        margin-left: 2px;
+      }
+      .current-info {
+        text-align: center;
+        margin-top: var(--space-lg);
+      }
+      .current-title {
+        font-size: var(--font-size-lg);
+        font-weight: 600;
+        color: var(--vpm-black);
+        margin-bottom: var(--space-xs);
+      }
+      .current-subtitle {
+        font-size: var(--font-size-base);
+        color: var(--vpm-gray);
+      }
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 1200px) {
+        .testimonials-grid {
+          gap: var(--space-3xl);
+        }
+        .testimonial-card {
+          padding: var(--space-2xl);
+        }
+      }
+      @media (max-width: 768px) {
+        .testimonials-section {
+          padding: var(--space-4xl) var(--space-lg);
+        }
+        .section-title {
+          font-size: var(--font-size-4xl);
+        }
+        .section-subtitle {
+          font-size: var(--font-size-lg);
+        }
+        .testimonials-grid {
+          grid-template-columns: 1fr;
+          gap: var(--space-3xl);
+        }
+        .testimonial-card {
+          padding: var(--space-xl);
+          border-radius: 20px;
+        }
+        .card-title {
+          font-size: var(--font-size-xl);
+        }
+        .video-container,
+        .quote-container {
+          border-radius: 12px;
+        }
+        .nav-arrow {
+          display: none;
+        }
+      }
+      @media (max-width: 480px) {
+        .testimonials-section {
+          padding: var(--space-3xl) var(--space-md);
+        }
+        .section-title {
+          font-size: var(--font-size-3xl);
+        }
+        .testimonial-card {
+          padding: var(--space-lg);
+          border-radius: 16px;
+        }
+        .card-header {
+          gap: var(--space-md);
+          margin-bottom: var(--space-lg);
+        }
+        .card-icon {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+        }
+      }
+    </style>
+    <!-- SVG Wave Section Break -->
+    <svg class="wave-top" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 0h1440v60c-240-40-480-40-720 0S240 60 0 60V0z" fill="#6CACE4"/></svg>
+    <section class="testimonials-section" aria-label="VPM Testimonials">
+      <!-- (All testimonial HTML from your original file goes here) -->
+      <div class="section-header">
+        <h2 class="section-title">Stories from Our Community</h2>
+        <p class="section-subtitle">Discover how VPM connects, educates, and inspires Virginians through the power of public media</p>
+      </div>
+      <div class="testimonials-grid">
+        <!-- Video Testimonials Card -->
+        <div class="testimonial-card">
+          <div class="card-header">
+            <div class="card-icon video-icon"></div>
+            <div>
+              <h3 class="card-title">Video Stories</h3>
+              <p class="card-subtitle">Hear directly from our community</p>
+            </div>
+          </div>
+          <div class="video-container">
+            <div class="video-track" id="videoTrack">
+              <div class="video-item">
+                <iframe src="https://player.vimeo.com/video/1100373787?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="Nupa Agarwal"></iframe>
+              </div>
+              <div class="video-item">
+                <iframe src="https://player.vimeo.com/video/1100373770?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="Ebony Walden"></iframe>
+              </div>
+              <div class="video-item">
+                <iframe src="https://player.vimeo.com/video/1100373752?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="Boz Boschen"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="nav-arrow prev" id="videoPrev"></button>
+            <div class="nav-dots">
+              <div class="nav-dot active" data-index="0"></div>
+              <div class="nav-dot" data-index="1"></div>
+              <div class="nav-dot" data-index="2"></div>
+            </div>
+            <button class="nav-arrow next" id="videoNext"></button>
+          </div>
+          <div class="current-info">
+            <div class="current-title" id="currentVideoTitle">Nupa Agarwal</div>
+            <div class="current-subtitle" id="currentVideoSubtitle">Community Impact Story</div>
+          </div>
+        </div>
+        <!-- Quote Testimonials Card -->
+        <div class="testimonial-card">
+          <div class="card-header">
+            <div class="card-icon quote-icon"></div>
+            <div>
+              <h3 class="card-title">Community Voices</h3>
+              <p class="card-subtitle">Visual stories from across Virginia</p>
+            </div>
+          </div>
+          <div class="quote-container">
+            <div class="quote-track" id="quoteTrack">
+              <div class="quote-item" data-index="0">
+                <img src="https://assets.vpm.org/76/a8/4bc39d7940c8a6dddf17c8e52a32/vpm-ddtestimonial-1080x1080-2507.jpg" alt="Dawn D. Testimonial" />
+              </div>
+              <div class="quote-item" data-index="1">
+                <img src="https://assets.vpm.org/21/a4/4b9f1e194c9690cf0fbdf557ee86/vpm-jttestimonial-1080x1080-2506-100.jpg" alt="Jennifer T. Testimonial" />
+              </div>
+              <div class="quote-item" data-index="2">
+                <img src="https://assets.vpm.org/5b/7e/5fb848cf46b5b14dcce0e27d80f8/vpm-rwtestimonial-1080x1080-2507-100.jpg" alt="Rob W. Testimonial" />
+              </div>
+              <div class="quote-item" data-index="3">
+                <img src="https://assets.vpm.org/7e/2c/8f5cdd774b62a0ea33d2e0235c08/vpm-sctestimonial-1080x1080-2507-100.jpg" alt="Sylvia C. Testimonial" />
+              </div>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="nav-arrow prev" id="quotePrev"></button>
+            <div class="nav-dots">
+              <div class="nav-dot active" data-index="0"></div>
+              <div class="nav-dot" data-index="1"></div>
+              <div class="nav-dot" data-index="2"></div>
+              <div class="nav-dot" data-index="3"></div>
+            </div>
+            <button class="nav-arrow next" id="quoteNext"></button>
+          </div>
+          <div class="current-info">
+            <div class="current-title" id="currentQuoteTitle">Dawn D.</div>
+            <div class="current-subtitle" id="currentQuoteSubtitle">"I love VPM, PBS and NPR..."</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      // Video carousel logic
+      let currentVideoIndex = 0;
+      let videoInterval;
+      const videoTrack = null;
+      const videoDots = [];
+      const videoTitleEl = null;
+      const videoSubtitleEl = null;
+      const videoData = [
+        { title: "Nupa Agarwal", subtitle: "Community Impact Story" },
+        { title: "Ebony Walden", subtitle: "Educational Transformation" },
+        { title: "Boz Boschen", subtitle: "Local News Trust" }
+      ];
+      // Quote carousel logic
+      let currentQuoteIndex = 0;
+      let quoteInterval;
+      const quoteTrack = null;
+      const quoteDots = [];
+      const quoteTitleEl = null;
+      const quoteSubtitleEl = null;
+      const quoteData = [
+        { title: "Dawn D.", subtitle: '"I love VPM, PBS and NPR..."' },
+        { title: "Jennifer T.", subtitle: '"I look to VPM for balanced news..."' },
+        { title: "Rob W.", subtitle: '"VPM provides fact-based programming..."' },
+        { title: "Sylvia C.", subtitle: '"VPM offers quality programs..."' }
+      ];
+      function showVideo(index) {
+        if (index < 0 || index >= videoData.length) return;
+        currentVideoIndex = index;
+        const offset = -index * 100;
+        this.shadowRoot.getElementById('videoTrack').style.transform = `translateX(${offset}%)`;
+        this.shadowRoot.querySelectorAll('.testimonial-card:first-child .nav-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        this.shadowRoot.getElementById('currentVideoTitle').textContent = videoData[index].title;
+        this.shadowRoot.getElementById('currentVideoSubtitle').textContent = videoData[index].subtitle;
+      }
+      function nextVideo() {
+        showVideo.call(this, (currentVideoIndex + 1) % videoData.length);
+      }
+      function prevVideo() {
+        showVideo.call(this, (currentVideoIndex - 1 + videoData.length) % videoData.length);
+      }
+      function startVideoAutoAdvance() {
+        videoInterval = setInterval(() => nextVideo.call(this), 8000);
+      }
+      function stopVideoAutoAdvance() {
+        clearInterval(videoInterval);
+      }
+      function showQuote(index) {
+        if (index < 0 || index >= quoteData.length) return;
+        currentQuoteIndex = index;
+        const offset = -index * 100;
+        this.shadowRoot.getElementById('quoteTrack').style.transform = `translateX(${offset}%)`;
+        this.shadowRoot.querySelectorAll('.testimonial-card:last-child .nav-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        this.shadowRoot.getElementById('currentQuoteTitle').textContent = quoteData[index].title;
+        this.shadowRoot.getElementById('currentQuoteSubtitle').textContent = quoteData[index].subtitle;
+      }
+      function nextQuote() {
+        showQuote.call(this, (currentQuoteIndex + 1) % quoteData.length);
+      }
+      function prevQuote() {
+        showQuote.call(this, (currentQuoteIndex - 1 + quoteData.length) % quoteData.length);
+      }
+      function startQuoteAutoAdvance() {
+        quoteInterval = setInterval(() => nextQuote.call(this), 7000);
+      }
+      function stopQuoteAutoAdvance() {
+        clearInterval(quoteInterval);
+      }
+      function setupCarousel(shadowRoot) {
+        // Video controls
+        shadowRoot.getElementById('videoPrev').onclick = () => prevVideo.call(this);
+        shadowRoot.getElementById('videoNext').onclick = () => nextVideo.call(this);
+        shadowRoot.querySelectorAll('.testimonial-card:first-child .nav-dot').forEach((dot, i) => {
+          dot.onclick = () => showVideo.call(this, i);
+        });
+        // Quote controls
+        shadowRoot.getElementById('quotePrev').onclick = () => prevQuote.call(this);
+        shadowRoot.getElementById('quoteNext').onclick = () => nextQuote.call(this);
+        shadowRoot.querySelectorAll('.testimonial-card:last-child .nav-dot').forEach((dot, i) => {
+          dot.onclick = () => showQuote.call(this, i);
+        });
+        // Auto-advance
+        shadowRoot.querySelector('.testimonial-card:first-child').addEventListener('mouseenter', stopVideoAutoAdvance);
+        shadowRoot.querySelector('.testimonial-card:first-child').addEventListener('mouseleave', startVideoAutoAdvance);
+        shadowRoot.querySelector('.testimonial-card:last-child').addEventListener('mouseenter', stopQuoteAutoAdvance);
+        shadowRoot.querySelector('.testimonial-card:last-child').addEventListener('mouseleave', startQuoteAutoAdvance);
+        // Initialize
+        showVideo.call(this, 0);
+        showQuote.call(this, 0);
+        startVideoAutoAdvance.call(this);
+        startQuoteAutoAdvance.call(this);
+      }
+    </script>
+  </template>
+  <script>
+    class TestimonialsWidget extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        const template = document.getElementById('testimonials-widget-template');
+        shadow.appendChild(template.content.cloneNode(true));
+      }
+      connectedCallback() {
+        // Setup carousels after DOM is ready
+        setTimeout(() => {
+          const shadowRoot = this.shadowRoot;
+          // Bind carousel logic to this instance
+          const showVideo = (index) => {
+            if (index < 0 || index >= 3) return;
+            this.currentVideoIndex = index;
+            const offset = -index * 100;
+            shadowRoot.getElementById('videoTrack').style.transform = `translateX(${offset}%)`;
+            shadowRoot.querySelectorAll('.testimonial-card:first-child .nav-dot').forEach((dot, i) => {
+              dot.classList.toggle('active', i === index);
+            });
+            shadowRoot.getElementById('currentVideoTitle').textContent = ["Nupa Agarwal","Ebony Walden","Boz Boschen"][index];
+            shadowRoot.getElementById('currentVideoSubtitle').textContent = ["Community Impact Story","Educational Transformation","Local News Trust"][index];
+          };
+          const nextVideo = () => showVideo((this.currentVideoIndex + 1) % 3);
+          const prevVideo = () => showVideo((this.currentVideoIndex - 1 + 3) % 3);
+          const showQuote = (index) => {
+            if (index < 0 || index >= 4) return;
+            this.currentQuoteIndex = index;
+            const offset = -index * 100;
+            shadowRoot.getElementById('quoteTrack').style.transform = `translateX(${offset}%)`;
+            shadowRoot.querySelectorAll('.testimonial-card:last-child .nav-dot').forEach((dot, i) => {
+              dot.classList.toggle('active', i === index);
+            });
+            shadowRoot.getElementById('currentQuoteTitle').textContent = ["Dawn D.","Jennifer T.","Rob W.","Sylvia C."][index];
+            shadowRoot.getElementById('currentQuoteSubtitle').textContent = [
+              '"I love VPM, PBS and NPR..."',
+              '"I look to VPM for balanced news..."',
+              '"VPM provides fact-based programming..."',
+              '"VPM offers quality programs..."'
+            ][index];
+          };
+          const nextQuote = () => showQuote((this.currentQuoteIndex + 1) % 4);
+          const prevQuote = () => showQuote((this.currentQuoteIndex - 1 + 4) % 4);
+          // Bind events
+          shadowRoot.getElementById('videoPrev').onclick = prevVideo;
+          shadowRoot.getElementById('videoNext').onclick = nextVideo;
+          shadowRoot.querySelectorAll('.testimonial-card:first-child .nav-dot').forEach((dot, i) => {
+            dot.onclick = () => showVideo(i);
+          });
+          shadowRoot.getElementById('quotePrev').onclick = prevQuote;
+          shadowRoot.getElementById('quoteNext').onclick = nextQuote;
+          shadowRoot.querySelectorAll('.testimonial-card:last-child .nav-dot').forEach((dot, i) => {
+            dot.onclick = () => showQuote(i);
+          });
+          // Auto-advance
+          let videoInterval, quoteInterval;
+          const startVideoAutoAdvance = () => {
+            videoInterval = setInterval(nextVideo, 8000);
+          };
+          const stopVideoAutoAdvance = () => {
+            clearInterval(videoInterval);
+          };
+          const startQuoteAutoAdvance = () => {
+            quoteInterval = setInterval(nextQuote, 7000);
+          };
+          const stopQuoteAutoAdvance = () => {
+            clearInterval(quoteInterval);
+          };
+          shadowRoot.querySelector('.testimonial-card:first-child').addEventListener('mouseenter', stopVideoAutoAdvance);
+          shadowRoot.querySelector('.testimonial-card:first-child').addEventListener('mouseleave', startVideoAutoAdvance);
+          shadowRoot.querySelector('.testimonial-card:last-child').addEventListener('mouseenter', stopQuoteAutoAdvance);
+          shadowRoot.querySelector('.testimonial-card:last-child').addEventListener('mouseleave', startQuoteAutoAdvance);
+          // Initialize
+          this.currentVideoIndex = 0;
+          this.currentQuoteIndex = 0;
+          showVideo(0);
+          showQuote(0);
+          startVideoAutoAdvance();
+          startQuoteAutoAdvance();
+        }, 0);
+      }
+    }
+    customElements.define('testimonials-widget', TestimonialsWidget);
+  </script>
+</body>
+</html> 

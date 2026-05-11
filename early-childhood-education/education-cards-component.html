@@ -1,0 +1,233 @@
+<!--
+  VPM Education Cards Component - Shadow DOM Web Component
+  =========================================================
+  
+  USAGE:
+  ------
+  Copy everything below this comment block and paste it into your HTML page.
+  Then simply use: <vpm-education-cards></vpm-education-cards>
+  
+  This component is fully self-contained and isolated using Shadow DOM.
+  No style conflicts with your existing page styles.
+  
+  FEATURES:
+  --------
+  - Shadow DOM isolation (no style leakage)
+  - Self-contained HTML, CSS, and JavaScript
+  - Responsive design
+  - Accessibility features
+  - Contrast checking utility
+  - Equalize panel heights utility
+-->
+
+<template id="vpm-education-cards-template">
+  <style>
+    /* Cards section — Shadow DOM isolated styles */
+    .cards-section{max-width:1200px; margin-inline:auto; padding:clamp(2.5rem,5vw,4rem) clamp(1rem,3vw,2rem);}  
+    .cards-header{text-align:center; margin-bottom:clamp(2rem,4vw,3rem);}  
+    .cards-title{color:var(--cardsTitleColor,var(--primaryColor1,#003865)); font-weight:700; font-size:clamp(2.25rem,3.5vw,3.5rem); line-height:1.2; letter-spacing:-.02em;}  
+    .cards-subtitle{color:var(--secC1,#6d6f6d); font-size:clamp(1.125rem,1.5vw,1.5rem); margin-top:.75rem; line-height:1.6; max-width:65ch; margin-inline:auto; font-weight:500;}  
+    .cards-description{color:var(--secC1,#6d6f6d); font-size:clamp(1rem,1.3vw,1.25rem); margin-top:1rem; line-height:1.7; max-width:70ch; margin-inline:auto;}  
+
+    .cards-grid{display:grid; gap:clamp(1rem,2vw,1.5rem); overflow:visible;}  
+    @media(min-width:640px){.cards-grid{grid-template-columns:repeat(2,1fr);}}  
+    @media(min-width:1024px){.cards-grid{grid-template-columns:repeat(3,1fr);}}  
+
+    .card{color:inherit; display:block; overflow:visible;}  
+    .card-inner{background:#fff; border-radius:var(--radiusLg,12px); box-shadow:0 1px 2px rgba(0,0,0,.06); overflow:hidden; transition:transform .2s, box-shadow .2s; border:1px solid rgba(0,0,0,.06); margin:6px; will-change:transform;}  
+    .card:hover .card-inner{transform:translateY(-4px) scale(1.02); box-shadow:var(--shadowElev,0 8px 20px rgba(0,0,0,.15));}  
+    @media(prefers-reduced-motion:reduce){ .card-inner{transition:none} .card:hover .card-inner{transform:none; box-shadow:0 1px 2px rgba(0,0,0,.06);} }  
+
+    .card-img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:#e5e7eb;}  
+
+    .card-panel{position:relative; padding:clamp(1rem,1.8vw,1.25rem); text-align:center; color:var(--fg,#101820); border-top:2px solid var(--border);}  
+    .card-panel::before{content:""; position:absolute; inset:0; background:rgba(var(--bgr),var(--bgg),var(--bgb),.16); z-index:0; transition:background-color .2s ease;}  
+    .card:hover .card-panel::before{background:rgba(var(--bgr),var(--bgg),var(--bgb),.24);}  
+    .card-panel>*{position:relative; z-index:1;}  
+
+    .card-pill{display:inline-block; border-radius:999px; padding:.25rem .75rem; font-weight:600; font-size:clamp(.825rem,1vw,.95rem); background:color-mix(in oklab,var(--border) 20%, transparent);}  
+    @supports not (color:color-mix(in oklab,red,blue)){.card-pill{background:rgba(var(--bgr),var(--bgg),var(--bgb),.2);}}  
+
+    .card-title{margin-top:.5rem; font-weight:800; letter-spacing:-.015em; font-size:clamp(1.25rem,1.75vw,1.75rem); line-height:1.25;}  
+    .card-text{margin-top:.75rem; font-size:clamp(1rem,1.2vw,1.15rem); line-height:1.6; opacity:.95;}  
+  </style>
+  
+  <section class="cards-section" aria-labelledby="ecc-title">
+    <header class="cards-header">
+      <h2 id="ecc-title" class="cards-title">About VPM Early Childhood Care & Education</h2>
+      <p class="cards-description">VPM provides parents and caregivers of children ages 0–8, especially those in underrepresented populations, with content and resources to help their families prepare for school and life.</p>
+    </header>
+
+    <div class="cards-grid" data-equalize-panels="true">
+      <!-- Baby -->
+      <article class="card">
+        <div class="card-inner">
+          <img src="https://assets.vpm.org/20/6f/9889f7ad2493c14f9867b93d7a97/pumpkin-patch-kids.jpg" alt="Caregiver smiling with an infant during a floor play activity" class="card-img" loading="lazy" decoding="async">
+          <div class="card-panel" style="--border:#6CACE4; --fg:#003865; --bgr:108; --bgg:172; --bgb:228;">
+            <span class="card-pill">Newborn to 12 months</span>
+            <h3 class="card-title">Early Development Resources for Babies</h3>
+            <p class="card-text">How can I help my baby learn and thrive? Discover essential resources for your baby's crucial first year of development.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Toddler -->
+      <article class="card">
+        <div class="card-inner">
+          <img src="https://assets.vpm.org/6e/05/369457374c979e0d8c20bf79674b/ms7.jpg" alt="Toddler exploring a picture book with a parent" class="card-img" loading="lazy" decoding="async">
+          <div class="card-panel" style="--border:#E0E721; --fg:#101820; --bgr:224; --bgg:231; --bgb:33;">
+            <span class="card-pill">1 to 3 years</span>
+            <h3 class="card-title">Reading Strategies for Toddlers</h3>
+            <p class="card-text">My baby's not a baby anymore! What are helpful ways to keep up with my on-the-go child? Find strategies for this exciting, energetic phase.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Preschool -->
+      <article class="card">
+        <div class="card-inner">
+          <img src="https://assets.vpm.org/a0/cd/7a61e840437c2c86951c67d8666f/kp-handsup.jpg" alt="Preschoolers raising hands during a classroom circle" class="card-img" loading="lazy" decoding="async">
+          <div class="card-panel" style="--border:#EE2737; --fg:#7a0d18; --bgr:238; --bgg:39; --bgb:55;">
+            <span class="card-pill">3 to 5 years</span>
+            <h3 class="card-title">Preschool Readiness Resources</h3>
+            <p class="card-text">It's time for preschool! Now what? Navigate this important milestone with confidence and prepare your child for success.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Early Elementary -->
+      <article class="card">
+        <div class="card-inner">
+          <img src="https://assets.vpm.org/ff/db/be8b0b511d6c0bfea8f9c6dcfec9/scdc-classroom-kids-01.jpg" alt="Early elementary students working together on a project" class="card-img" loading="lazy" decoding="async">
+          <div class="card-panel" style="--border:#003865; --fg:#003865; --bgr:0; --bgg:56; --bgb:101;">
+            <span class="card-pill">5 to 8 years</span>
+            <h3 class="card-title">Elementary Learning Support</h3>
+            <p class="card-text">How do I support my child during the earliest years of formal education? Build strong foundations for academic success.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Parent & Caregiver -->
+      <article class="card">
+        <div class="card-inner">
+          <img src="https://assets.vpm.org/4c/06/4acc354148fc8ef576beb28487f7/20250128-ga-scene-sa-1355.jpg" alt="Parent pausing for a mindful breathing break while a child plays" class="card-img" loading="lazy" decoding="async">
+          <div class="card-panel" style="--border:#8e7cc3; --fg:#3f3362; --bgr:142; --bgg:124; --bgb:195;">
+            <span class="card-pill">All Ages</span>
+            <h3 class="card-title">Parent & Caregiver Wellness</h3>
+            <p class="card-text">How do I care for myself while caring for a child? Essential wellness strategies and support for parents and caregivers.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Teacher -->
+      <article class="card">
+        <div class="card-inner">
+          <img src="https://assets.vpm.org/a2/92/b909d3fe4d399ef40a28da8824b6/tcc-childcare-040.JPG" alt="Early childhood educator leading a small-group activity" class="card-img" loading="lazy" decoding="async">
+          <div class="card-panel" style="--border:#2d8659; --fg:#1b4f35; --bgr:45; --bgg:134; --bgb:89;">
+            <span class="card-pill">Educators</span>
+            <h3 class="card-title">Early Childhood Educator Resources</h3>
+            <p class="card-text">Professional development resources, classroom strategies, and educational tools to support early childhood educators in Virginia.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</template>
+
+<script>
+class VpmEducationCards extends HTMLElement {
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    const template = document.getElementById('vpm-education-cards-template');
+    
+    if (!template) {
+      console.error('VPM Education Cards: Template not found. Make sure the template element is included.');
+      return;
+    }
+    
+    shadow.appendChild(template.content.cloneNode(true));
+    
+    // Initialize utilities after shadow DOM is attached
+    this.initializeUtilities(shadow);
+  }
+  
+  initializeUtilities(shadow) {
+    // Contrast reporter — logs AA ratios for each card panel
+    (function(shadowRoot) {
+      function srgbToLin(c){c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4)}
+      function relLuma(r,g,b){return .2126*srgbToLin(r)+.7152*srgbToLin(g)+.0722*srgbToLin(b)}
+      function contrast(a,b){const L1=relLuma(...a),L2=relLuma(...b);const hi=Math.max(L1,L2),lo=Math.min(L1,L2);return (hi+.05)/(lo+.05)}
+      function hexToRgb(hex){hex=(hex||'').replace('#','');if(hex.length===3){hex=[...hex].map(x=>x+x).join('')}const n=parseInt(hex,16);return[(n>>16)&255,(n>>8)&255,n&255]}
+      function parseColor(v,fb){if(v&&/^#/.test(v.trim()))return hexToRgb(v.trim());return fb}
+
+      const pageBg=getComputedStyle(document.documentElement).getPropertyValue('--siteBgColor').trim()||'#ffffff';
+      const theme=(document.documentElement.dataset && document.documentElement.dataset.theme)||'light';
+      const base=parseColor(pageBg,[255,255,255]);
+      shadowRoot.querySelectorAll('.card-panel').forEach((p,i)=>{
+        const cs=getComputedStyle(p);
+        const fg = (cs.getPropertyValue('--fg').trim()||'#101820');
+        const r=+cs.getPropertyValue('--bgr')||255, g=+cs.getPropertyValue('--bgg')||255, b=+cs.getPropertyValue('--bgb')||255;
+        const tint=.16;
+        const bg=[Math.round(base[0]*(1-tint)+r*tint),Math.round(base[1]*(1-tint)+g*tint),Math.round(base[2]*(1-tint)+b*tint)];
+        const ratio=contrast(hexToRgb(fg),bg).toFixed(2);
+        const card=p.closest('.card');
+        const titleEl=card?.querySelector('.card-title');
+        const label=titleEl?.textContent?.trim()||`Card ${i+1}`;
+        console.log(`[Cards Contrast][${theme}] ${label}: ${ratio}:1`);
+        if(ratio<4.5) console.warn(`  ↳ [${theme}] Below AA (4.5). Consider darker fg or stronger tint.`);
+      });
+    })(shadow);
+    
+    // Equalize panel heights per row for tidy baselines (opt-in via data-equalize-panels)
+    (function(shadowRoot) {
+      const grid=shadowRoot.querySelector('.cards-grid[data-equalize-panels]');
+      if(!grid) return;
+      const panels=[...grid.querySelectorAll('.card-panel')];
+      function equalize(){
+        panels.forEach(p=>p.style.minHeight='');
+        // Group by row using top position
+        const rows=new Map();
+        panels.forEach(p=>{
+          const top=p.getBoundingClientRect().top;
+          const key=Math.round(top/10)*10; // bucket to 10px to avoid subpixel jitter
+          const arr=rows.get(key)||[]; arr.push(p); rows.set(key,arr);
+        });
+        rows.forEach(group=>{
+          const max=Math.max(...group.map(p=>p.getBoundingClientRect().height));
+          group.forEach(p=>p.style.minHeight=`${Math.ceil(max)}px`);
+        });
+      }
+      let rafId=null; 
+      const onResize=()=>{ 
+        if(rafId) cancelAnimationFrame(rafId); 
+        rafId=requestAnimationFrame(equalize); 
+      };
+      window.addEventListener('load', onResize, {once:true});
+      window.addEventListener('resize', onResize);
+      // Re-run after images load (important for 16:9 placeholders on Safari when intrinsic sizes shift)
+      grid.querySelectorAll('img').forEach(img=>{
+        if(img.complete) return; 
+        img.addEventListener('load', onResize, {once:true});
+      });
+      // Initial equalize after a short delay to ensure layout is complete
+      setTimeout(equalize, 100);
+    })(shadow);
+  }
+}
+
+// Register the custom element
+customElements.define('vpm-education-cards', VpmEducationCards);
+</script>
+
+<!--
+  USAGE EXAMPLE:
+  ==============
+  
+  After copying the template and script above, simply add this to your HTML:
+  
+  <vpm-education-cards></vpm-education-cards>
+  
+  That's it! The component will render with full Shadow DOM isolation.
+-->
+

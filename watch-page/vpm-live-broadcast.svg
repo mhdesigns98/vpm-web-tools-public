@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="640" viewBox="0 0 1024 640">
+  <rect width="1024" height="640" fill="#ffffff"/>
+  <g fill="#0b4a7d" font-family="'GT America','Helvetica Neue',Arial,sans-serif" font-weight="700" text-anchor="middle">
+    <text x="512" y="260" font-size="200">VPM</text>
+  </g>
+  <g fill="#101820" font-family="'GT America','Helvetica Neue',Arial,sans-serif" font-weight="700" text-anchor="middle" font-size="120">
+    <text x="512" y="380">LIVE</text>
+    <text x="512" y="500">BROADCAST</text>
+  </g>
+</svg>

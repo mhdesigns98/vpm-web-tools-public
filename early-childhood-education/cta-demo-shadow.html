@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VPM CTAs Shadow DOM Example</title>
+</head>
+<body>
+  <!-- Use the custom element anywhere on the page -->
+  <vpm-ctas></vpm-ctas>
+
+  <template id="vpm-ctas-template">
+    <style>
+      /*
+        VPM Education CTAs - Self-contained, isolated component (Shadow DOM).
+        All styles are scoped to .vpm-education-ctas and isolated from the host page.
+      */
+      .vpm-education-ctas {
+        --vpm-navy-blue: #003865;
+        --vpm-light-blue: #6CACE4;
+        --vpm-black: #101820;
+        --vpm-gray: #B2B4B2;
+        --vpm-red: #EE2737;
+        --vpm-chartreuse: #E0E721;
+        --vpm-navy-blue-75: rgba(0, 56, 101, 0.75);
+        --vpm-navy-blue-50: rgba(0, 56, 101, 0.5);
+        --vpm-navy-blue-25: rgba(0, 56, 101, 0.25);
+        --font-primary: 'GT America', Arial, sans-serif;
+        --line-height-normal: 1.5;
+        --tracking-tight: -0.025em;
+        --space-sm: 0.5rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2rem;
+        --space-2xl: 3rem;
+        box-sizing: border-box;
+        font-family: var(--font-primary);
+        line-height: var(--line-height-normal);
+        color: var(--vpm-black);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: var(--space-xl);
+        background-color: transparent;
+      }
+      .vpm-education-ctas, .vpm-education-ctas *, .vpm-education-ctas *::before, .vpm-education-ctas *::after {
+        box-sizing: border-box;
+      }
+      .vpm-education-ctas .page-header {
+        text-align: center;
+        margin-bottom: var(--space-2xl);
+      }
+      .vpm-education-ctas .page-title {
+        font-size: 2rem;
+        font-family: var(--font-primary);
+        font-weight: 700;
+        color: var(--vpm-navy-blue);
+        margin: 0 0 var(--space-sm) 0;
+        letter-spacing: var(--tracking-tight);
+      }
+      .vpm-education-ctas .page-subtitle {
+        font-size: 1.125rem;
+        font-family: var(--font-primary);
+        color: var(--vpm-gray);
+        margin: 0;
+      }
+      .vpm-education-ctas .cta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: var(--space-lg);
+        margin-bottom: var(--space-2xl);
+      }
+      .vpm-education-ctas .cta-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .vpm-education-ctas .cta-card:hover,
+      .vpm-education-ctas .cta-card:focus-within {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        outline: none;
+      }
+      .vpm-education-ctas .cta-image {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        display: block;
+      }
+      .vpm-education-ctas .cta-header {
+        padding: var(--space-xl) var(--space-xl) var(--space-lg) var(--space-xl);
+        background: linear-gradient(135deg, var(--vpm-navy-blue), var(--vpm-light-blue));
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+        text-align: center;
+      }
+      .vpm-education-ctas .cta-header-link {
+        margin-top: 1.25rem;
+        font-size: 1.05rem;
+        font-family: var(--font-primary);
+        font-weight: 700;
+        background: rgba(0,0,0,0.08);
+        color: #fff;
+        border-radius: 6px;
+        padding: 0.5em 1.1em;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+        display: inline-block;
+        transition: background 0.2s, color 0.2s;
+        text-decoration: none;
+      }
+      .vpm-education-ctas .cta-header-link:hover,
+      .vpm-education-ctas .cta-header-link:focus {
+        background: rgba(255,255,255,0.18);
+        color: #003865;
+        text-decoration: none;
+        outline: 2px solid var(--vpm-light-blue);
+      }
+      .vpm-education-ctas .cta-header-link .nowrap-arrow {
+        white-space: nowrap;
+      }
+      .vpm-education-ctas .age-badge {
+        font-size: 0.95rem;
+        font-family: var(--font-primary);
+        font-weight: 500;
+        background: rgba(255,255,255,0.18);
+        color: #fff;
+        margin-bottom: 1.1rem;
+        opacity: 0.85;
+        padding: 0.5em 1.5em;
+      }
+      .vpm-education-ctas .cta-header .cta-title {
+        font-size: 1.35rem;
+        font-family: var(--font-primary);
+        font-weight: 800;
+        margin-bottom: 1.1rem;
+        margin-top: 1.1rem;
+        letter-spacing: var(--tracking-tight);
+        text-shadow: 0 1px 3px rgba(0,0,0,0.18);
+        line-height: 1.25;
+      }
+      .vpm-education-ctas .inline-link {
+        color: var(--vpm-navy-blue);
+        text-decoration: underline;
+        font-weight: 600;
+      }
+      .vpm-education-ctas .inline-link:hover {
+        color: var(--vpm-red);
+      }
+      .vpm-education-ctas .cta-card--baby .cta-header {
+        background: linear-gradient(135deg, #357abf, #6CACE4);
+      }
+      .vpm-education-ctas .cta-card--toddler .cta-header {
+        background: linear-gradient(135deg, #b3b800, #bfcf2e);
+        color: var(--vpm-black);
+      }
+      .vpm-education-ctas .cta-card--toddler .cta-header-link,
+      .vpm-education-ctas .cta-card--toddler .age-badge,
+      .vpm-education-ctas .cta-card--toddler .cta-title {
+        color: var(--vpm-black);
+        text-shadow: 0 1px 3px rgba(255,255,255,0.3);
+      }
+      .vpm-education-ctas .cta-card--toddler .age-badge {
+        background: rgba(0,0,0,0.15);
+      }
+      .vpm-education-ctas .cta-card--preschool .cta-header {
+        background: linear-gradient(135deg, #b91c1c, #ff6b7a);
+      }
+      .vpm-education-ctas .cta-card--elementary .cta-header {
+        background: linear-gradient(135deg, #003865, #2563eb);
+      }
+      .vpm-education-ctas .cta-card--parent .cta-header {
+        background: linear-gradient(135deg, #6b4fa1, #8e7cc3);
+      }
+      .vpm-education-ctas .cta-card--teacher .cta-header {
+        background: linear-gradient(135deg, #23613d, #2d8659);
+      }
+      @media (max-width: 768px) {
+        .vpm-education-ctas .cta-grid {
+          grid-template-columns: 1fr;
+        }
+        .vpm-education-ctas .page-title {
+          font-size: 1.75rem;
+        }
+        .vpm-education-ctas {
+          padding: var(--space-md);
+        }
+      }
+    </style>
+    <div class="vpm-education-ctas" role="region" aria-label="Early Childhood Education CTAs">
+      <header class="page-header">
+        <h1 class="page-title">Early Childhood Education Resources</h1>
+        <p class="page-subtitle">Learning opportunities for all families in our community</p>
+      </header>
+      <section class="cta-grid">
+        <!-- Baby Category -->
+        <article class="cta-card cta-card--baby">
+          <img src="https://picsum.photos/400/240?random=1" alt="Baby development activities" class="cta-image" />
+          <div class="cta-header">
+            <div>
+              <span class="age-badge">Newborn to 12 months</span>
+              <h2 class="cta-title">Early Development Activities for Babies</h2>
+            </div>
+            <a href="#" class="cta-header-link" tabindex="0" aria-label="View Baby Development Guide">View Baby Development Guide <span class="nowrap-arrow">→</span></a>
+          </div>
+        </article>
+        <!-- Toddler Category -->
+        <article class="cta-card cta-card--toddler">
+          <img src="https://picsum.photos/400/240?random=2" alt="Toddler reading activities" class="cta-image" />
+          <div class="cta-header">
+            <div>
+              <span class="age-badge">1 to 3 years</span>
+              <h2 class="cta-title">Reading Activities for Toddlers</h2>
+            </div>
+            <a href="#" class="cta-header-link" tabindex="0" aria-label="Browse Toddler Reading Ideas">Browse Toddler Reading Ideas <span class="nowrap-arrow">→</span></a>
+          </div>
+        </article>
+        <!-- Preschool Category -->
+        <article class="cta-card cta-card--preschool">
+          <img src="https://picsum.photos/400/200?random=3" alt="Preschool readiness activities" class="cta-image" />
+          <div class="cta-header">
+            <div>
+              <span class="age-badge">3 to 5 years</span>
+              <h2 class="cta-title">Preschool Readiness Resources</h2>
+            </div>
+            <a href="#" class="cta-header-link" tabindex="0" aria-label="Access Preschool Prep Tools">Access Preschool Prep Tools <span class="nowrap-arrow">→</span></a>
+          </div>
+        </article>
+        <!-- Early Elementary Category -->
+        <article class="cta-card cta-card--elementary">
+          <img src="https://picsum.photos/400/240?random=4" alt="Elementary learning support" class="cta-image" />
+          <div class="cta-header">
+            <div>
+              <span class="age-badge">5 to 8 years</span>
+              <h2 class="cta-title">Elementary Learning Support</h2>
+            </div>
+            <a href="#" class="cta-header-link" tabindex="0" aria-label="Find Elementary Learning Tools">Find Elementary Learning Tools <span class="nowrap-arrow">→</span></a>
+          </div>
+        </article>
+        <!-- Parent and Caregiver Self-Help -->
+        <article class="cta-card cta-card--parent">
+          <img src="https://picsum.photos/400/240?random=5" alt="Parent and caregiver wellness" class="cta-image" />
+          <div class="cta-header">
+            <div>
+              <span class="age-badge">All Ages</span>
+              <h2 class="cta-title">Parent & Caregiver Wellness</h2>
+            </div>
+            <a href="#" class="cta-header-link" tabindex="0" aria-label="Explore Parent Support Resources">Explore Parent Support Resources <span class="nowrap-arrow">→</span></a>
+          </div>
+        </article>
+        <!-- Teacher Help -->
+        <article class="cta-card cta-card--teacher">
+          <img src="https://picsum.photos/400/240?random=6" alt="Early childhood educator resources" class="cta-image" />
+          <div class="cta-header">
+            <div>
+              <span class="age-badge">Educators</span>
+              <h2 class="cta-title">Early Childhood Educator Resources</h2>
+            </div>
+            <a href="#" class="cta-header-link" tabindex="0" aria-label="Access Educator Resources">Access Educator Resources <span class="nowrap-arrow">→</span></a>
+          </div>
+        </article>
+      </section>
+    </div>
+  </template>
+
+  <script>
+    class VpmCtas extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        const template = document.getElementById('vpm-ctas-template');
+        shadow.appendChild(template.content.cloneNode(true));
+      }
+    }
+    customElements.define('vpm-ctas', VpmCtas);
+  </script>
+</body>
+</html> 
