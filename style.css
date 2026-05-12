@@ -178,6 +178,16 @@ main {
   background: #2563eb;
 }
 
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+
+.btn-secondary:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
 .btn-disabled {
   background: var(--btn-disabled-bg);
   color: var(--btn-disabled-text);
