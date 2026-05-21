@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 640" role="img" aria-labelledby="title desc">
+  <title id="title">VPM Livestream</title>
+  <desc id="desc">Logo lockup reading VPM vertical bar Livestream</desc>
+  <rect width="1024" height="640" fill="#ffffff"/>
+  <g font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif" font-weight="700" text-anchor="start">
+    <text x="120" y="340" font-size="210" fill="#0b4a7d">VPM</text>
+    <line x1="520" y1="170" x2="520" y2="430" stroke="#101820" stroke-width="16"/>
+    <text x="560" y="338" font-size="170" fill="#101820">Livestream</text>
+  </g>
+</svg>

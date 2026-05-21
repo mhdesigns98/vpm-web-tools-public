@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VPM Morning Monitor - Homepage Variant Preview</title>
+  <!-- Preview page for homepage-optimized variant -->
+  <style>
+    /* Simulate page context */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+    
+    /* Mock content sections for context */
+    .mock-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .mock-header {
+      background: #003865;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .mock-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .mock-card {
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      height: 150px;
+    }
+    
+    .mock-card-title {
+      font-size: 14px;
+      color: #666;
+      margin: 0;
+    }
+    
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #003865;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #E0E721;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Mock header for context -->
+  <div class="mock-header">
+    VPM Homepage Header Area (mock)
+  </div>
+  
+  <!-- Mock content section above -->
+  <div class="mock-section">
+    <span class="section-title">Spotlight on VPM Original Content</span>
+    <div class="mock-content">
+      <div class="mock-card"><p class="mock-card-title">Content card placeholder</p></div>
+      <div class="mock-card"><p class="mock-card-title">Content card placeholder</p></div>
+      <div class="mock-card"><p class="mock-card-title">Content card placeholder</p></div>
+    </div>
+  </div>
+
+  <!-- Newsletter Section - Homepage Optimized Variant -->
+  <style>
+    /* Section wrapper - matches homepage section styling */
+    #vpm-newsletter-section {
+      background-color: #f5f5f5;
+      padding: 40px 16px;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+    #vpm-newsletter-section * {
+      box-sizing: inherit;
+    }
+
+    /* Section header - matches homepage pattern */
+    #vpm-newsletter-section .section-header {
+      max-width: 1200px;
+      margin: 0 auto 20px;
+      text-align: center;
+    }
+
+    #vpm-newsletter-section .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #003865;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #E0E721;
+    }
+
+    /* Form card - refined styling */
+    #vpm-newsletter-section .vpm-form-body {
+      max-width: 900px;
+      margin: 0 auto;
+      background:
+        linear-gradient(135deg, rgba(0, 56, 101, 0.95) 0%, rgba(0, 40, 75, 0.95) 100%);
+      border: 4px solid #E0E721;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle corner accent - smaller for homepage */
+    #vpm-newsletter-section .vpm-form-body::after {
+      display: none;
+    }
+
+    /* Ensure content stays above decorative elements */
+    #vpm-newsletter-section .vpm-form-body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header image styling */
+    #vpm-newsletter-section .vpm-form-header {
+      max-width: 100%;
+      margin: 0 auto 16px;
+    }
+    #vpm-newsletter-section .vpm-form-header img {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      margin: 0 auto;
+    }
+
+    /* Headline styling - cleaner for homepage */
+    #vpm-newsletter-section h3 {
+      color: #ffffff;
+      font-size: 20px;
+      line-height: 1.4;
+      margin: 0 auto 20px;
+      max-width: 100%;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      word-break: break-word;
+    }
+
+    #vpm-newsletter-section h3 .highlight {
+      color: #E0E721;
+      font-style: italic;
+      display: inline;
+    }
+
+    /* Form layout */
+    #vpm-newsletter-section .vpm-form-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Mobile-first: Stack form fields by default */
+    #vpm-newsletter-section .vpm-form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    /* Input field styling */
+    #vpm-newsletter-section .vpm-field-group {
+      flex: 1;
+      min-width: 0;
+    }
+
+    #vpm-newsletter-section label {
+      display: block;
+      margin-bottom: 6px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    #vpm-newsletter-section input[type="email"] {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      height: 48px;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    #vpm-newsletter-section input[type="email"]:focus {
+      outline: none;
+      border-color: #E0E721;
+      box-shadow: 0 0 0 3px rgba(224, 231, 33, 0.2);
+    }
+
+    #vpm-newsletter-section input[type="email"]::placeholder {
+      color: #999;
+    }
+
+    /* Subscribe button styling */
+    #vpm-newsletter-section .vpm-submit {
+      flex-shrink: 0;
+    }
+
+    #vpm-newsletter-section .vpm-submit label {
+      margin-bottom: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    #vpm-newsletter-section input[type="submit"] {
+      background: #E0E721;
+      color: #003865;
+      border: none;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+      height: 48px;
+      box-shadow: 0 2px 8px rgba(224, 231, 33, 0.3);
+      letter-spacing: 0.5px;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    #vpm-newsletter-section input[type="submit"]:hover {
+      background: #c9d11e;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(224, 231, 33, 0.4);
+    }
+
+    #vpm-newsletter-section input[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    #vpm-newsletter-section input[type="submit"]:focus {
+      outline: 3px solid #E0E721;
+      outline-offset: 2px;
+    }
+
+    /* Secondary link styling */
+    #vpm-newsletter-section .vpm-explore-link {
+      margin-top: 14px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    #vpm-newsletter-section .vpm-explore-link a {
+      color: #E0E721;
+      text-decoration: underline;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    #vpm-newsletter-section .vpm-explore-link a:hover {
+      background-color: rgba(224, 231, 33, 0.1);
+      color: #c9d11e;
+    }
+
+    #vpm-newsletter-section .vpm-explore-link a:focus {
+      outline: 2px solid #E0E721;
+      outline-offset: 2px;
+    }
+
+    /* Response message styling */
+    #vpm-newsletter-section .vpm-response {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    #vpm-newsletter-section .vpm-error-response {
+      background-color: #ffebee;
+      color: #c62828;
+      border: 1px solid #ef9a9a;
+      display: none;
+    }
+
+    #vpm-newsletter-section .vpm-success-response {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #81c784;
+      display: none;
+    }
+
+    /* Screen reader only text */
+    #vpm-newsletter-section .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Very small phones (max 360px) */
+    @media screen and (max-width: 360px) {
+      #vpm-newsletter-section {
+        padding: 30px 12px;
+      }
+
+      #vpm-newsletter-section .vpm-form-body {
+        padding: 24px 16px;
+        border-width: 3px;
+      }
+
+      #vpm-newsletter-section h3 {
+        font-size: 18px;
+      }
+
+      #vpm-newsletter-section .vpm-form-header img {
+        max-width: 200px;
+      }
+    }
+
+    /* Tablet and desktop (600px+) */
+    @media screen and (min-width: 600px) {
+      #vpm-newsletter-section {
+        padding: 50px 20px;
+      }
+
+      #vpm-newsletter-section .section-label {
+        font-size: 13px;
+        letter-spacing: 2px;
+      }
+
+      #vpm-newsletter-section .vpm-form-body {
+        padding: 40px 50px;
+        border-radius: 10px;
+      }
+
+      /* Show corner accent on larger screens */
+      #vpm-newsletter-section .vpm-form-body::after {
+        display: block;
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 0 40px 40px;
+        border-color: transparent transparent #E0E721 transparent;
+        z-index: 1;
+      }
+
+      #vpm-newsletter-section .vpm-form-header {
+        margin-bottom: 20px;
+      }
+
+      #vpm-newsletter-section .vpm-form-header img {
+        max-width: 300px;
+      }
+
+      #vpm-newsletter-section h3 {
+        font-size: 24px;
+        margin-bottom: 24px;
+      }
+
+      /* Side-by-side form */
+      #vpm-newsletter-section .vpm-form-fields {
+        flex-direction: row;
+        gap: 12px;
+        align-items: flex-end;
+      }
+
+      #vpm-newsletter-section input[type="email"] {
+        height: 50px;
+      }
+
+      #vpm-newsletter-section input[type="submit"] {
+        width: auto;
+        height: 50px;
+        padding: 14px 36px;
+        font-size: 16px;
+      }
+
+      #vpm-newsletter-section .vpm-explore-link {
+        margin-top: 18px;
+        font-size: 15px;
+      }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      #vpm-newsletter-section .vpm-form-body {
+        border: 2px solid #000;
+      }
+
+      #vpm-newsletter-section input[type="email"] {
+        border: 2px solid #000;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      #vpm-newsletter-section * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+
+  <section id="vpm-newsletter-section">
+    <div class="section-header">
+      <span class="section-label">Newsletter</span>
+    </div>
+    
+    <div class="vpm-form-body">
+      <div class="vpm-form-header">
+        <img src="https://assets.vpm.org/42/0a/e860df4a4251b9004653422ee642/vpm-mm-newsletter-header-150x-100.jpg" alt="VPM News Morning Monitor newsletter logo">
+      </div>
+
+      <div class="vpm-form-content">
+        <h3><span class="highlight">Your Morning</span> Starts Here. Stay informed on news you care about.</h3>
+
+        <form action="https://vpm.us3.list-manage.com/subscribe/post?u=6fe41b3055c403be08140ec95&id=26497cf3ad&f_id=0016c9e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_self" novalidate>
+          <div class="vpm-form-fields">
+            <div class="vpm-field-group">
+              <label for="mce-EMAIL">
+                Email Address
+                <span aria-hidden="true">*</span>
+                <span class="sr-only">(required)</span>
+              </label>
+              <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required placeholder="your.email@example.com" aria-required="true" aria-describedby="email-description">
+              <span id="email-description" class="sr-only">Enter your email address to subscribe to the Morning Monitor newsletter</span>
+            </div>
+
+            <div class="vpm-submit">
+              <label class="sr-only" for="mc-embedded-subscribe">Submit subscription</label>
+              <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+            </div>
+          </div>
+
+          <div hidden>
+            <input type="hidden" name="tags" value="1620245,1620261">
+          </div>
+
+          <div class="vpm-response vpm-error-response" id="mce-error-response" role="alert" aria-live="polite"></div>
+          <div class="vpm-response vpm-success-response" id="mce-success-response" role="alert" aria-live="polite"></div>
+
+          <div aria-hidden="true" style="position: absolute; left: -5000px;">
+            <input type="text" name="b_6fe41b3055c403be08140ec95_26497cf3ad" tabindex="-1" value="">
+          </div>
+
+          <div class="vpm-explore-link">
+            <a href="https://www.vpm.org/stay-connected-to-what-matters">Explore More Newsletters</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mock content section below -->
+  <div class="mock-section">
+    <span class="section-title">More Content</span>
+    <div class="mock-content">
+      <div class="mock-card"><p class="mock-card-title">Content card placeholder</p></div>
+      <div class="mock-card"><p class="mock-card-title">Content card placeholder</p></div>
+      <div class="mock-card"><p class="mock-card-title">Content card placeholder</p></div>
+    </div>
+  </div>
+</body>
+</html>
+

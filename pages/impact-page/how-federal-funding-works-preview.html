@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Federal Funding Works — Preview</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f4f4; font-family: Arial, sans-serif; }
+    .preview-bar { background: #222; color: #ccc; font-size: 0.75rem; padding: 6px 14px; }
+    .preview-bar strong { color: #fff; }
+    .preview-content { padding: 24px; }
+  </style>
+</head>
+<body>
+  <div class="preview-bar">Preview — <strong>how-federal-funding-works-section.html</strong> embed</div>
+  <div class="preview-content">
+    <div id="mount"></div>
+  </div>
+  <script>
+    fetch('how-federal-funding-works-section.html')
+      .then(r => r.text())
+      .then(html => {
+        const mount = document.getElementById('mount');
+        const frag = document.createRange().createContextualFragment(html);
+        mount.appendChild(frag);
+      });
+  </script>
+</body>
+</html>

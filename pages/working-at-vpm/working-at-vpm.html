@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Working at VPM | Our Culture</title>
+  <style>
+    .vpm-culture-page {
+      --vpm-navy: #003865;
+      --vpm-blue: #6CACE4;
+      --vpm-gray: #B2B4B2;
+      --vpm-red: #EE2737;
+      --vpm-green: #2d8659;
+      --vpm-purple: #8e7cc3;
+      --vpm-yellow: #E0E721;
+      --font-primary: 'GT America', Arial, sans-serif;
+      font-family: var(--font-primary);
+      color: var(--vpm-navy);
+      background: #f9fafb;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem 1.5rem;
+    }
+    .vpm-culture-page *, .vpm-culture-page *::before, .vpm-culture-page *::after {
+      box-sizing: border-box;
+    }
+    .vpm-section {
+      margin-bottom: 2.5rem;
+    }
+    .vpm-hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      min-height: 340px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(120deg, rgba(0,56,101,0.7) 0%, rgba(108,172,228,0.6) 100%), url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3.5rem 1.5rem 2.5rem 1.5rem;
+    }
+    .vpm-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .vpm-hero p {
+      font-size: 1.25rem;
+      color: #e6f0fa;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .vpm-leadership-quote {
+      font-size: 1.1rem;
+      color: #fff;
+      font-style: italic;
+      margin: 0 auto 1.5rem auto;
+      max-width: 600px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .vpm-leadership-quote span {
+      font-style:normal; color:var(--vpm-blue); font-weight:600;
+    }
+    .vpm-section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--vpm-blue);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .vpm-culture-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .vpm-culture-highlight {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1.25rem 1rem;
+      flex: 1 1 220px;
+      max-width: 320px;
+      min-width: 200px;
+      text-align: center;
+    }
+    .vpm-culture-highlight h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--vpm-navy);
+      margin-bottom: 0.5rem;
+    }
+    .vpm-culture-highlight p {
+      font-size: 1rem;
+      color: var(--vpm-navy);
+      margin: 0;
+    }
+    .vpm-testimonials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .vpm-testimonial {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1.25rem 1rem 1rem 1rem;
+      flex: 1 1 260px;
+      max-width: 340px;
+      min-width: 200px;
+      text-align: left;
+      font-size: 1.08rem;
+      color: var(--vpm-navy);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .vpm-testimonial cite {
+      display: block;
+      margin-top: 1rem;
+      font-style: normal;
+      color: var(--vpm-blue);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .vpm-culture-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .vpm-culture-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1.25rem 1rem;
+      flex: 1 1 220px;
+      max-width: 320px;
+      min-width: 200px;
+      text-align: center;
+      position: relative;
+    }
+    .vpm-culture-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--vpm-purple);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+    }
+    .vpm-culture-card p {
+      font-size: 1rem;
+      color: var(--vpm-navy);
+      margin: 0;
+    }
+    .vpm-culture-card .vpm-icon {
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align: middle;
+      margin-right: 0.3em;
+      flex-shrink: 0;
+    }
+    .vpm-culture-photos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .vpm-culture-photo {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      width: 220px;
+      height: 160px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vpm-culture-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .vpm-cta-section {
+      background: var(--vpm-blue);
+      color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      padding: 2rem 1rem 1.5rem 1rem;
+      margin-top: 2.5rem;
+    }
+    .vpm-cta-section h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .vpm-cta-section p {
+      font-size: 1.08rem;
+      margin-bottom: 1.2rem;
+    }
+    .vpm-cta-section a {
+      display: inline-block;
+      background: var(--vpm-navy);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 0.7em 1.5em;
+      text-decoration: none;
+      font-size: 1.08rem;
+      transition: background 0.2s;
+    }
+    .vpm-cta-section a:hover {
+      background: var(--vpm-green);
+    }
+    .vpm-jobs-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .vpm-job-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+      padding: 1.5rem 1.25rem 1.25rem 1.25rem;
+      flex: 1 1 260px;
+      max-width: 340px;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      text-align: left;
+      position: relative;
+      border-left: 5px solid var(--vpm-blue);
+    }
+    .vpm-job-card h3 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--vpm-navy);
+      margin-bottom: 0.3rem;
+    }
+    .vpm-job-meta {
+      font-size: 0.98rem;
+      color: var(--vpm-gray);
+      margin-bottom: 0.7rem;
+    }
+    .vpm-job-card p {
+      font-size: 1rem;
+      color: var(--vpm-navy);
+      margin-bottom: 1.1rem;
+      flex: 1 0 auto;
+    }
+    .vpm-job-apply {
+      display: inline-block;
+      background: var(--vpm-blue);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 0.5em 1.2em;
+      text-decoration: none;
+      font-size: 1.02rem;
+      transition: background 0.2s;
+      margin-top: 0.2rem;
+    }
+    .vpm-job-apply:hover {
+      background: var(--vpm-navy);
+    }
+    @media (max-width: 700px) {
+      .vpm-culture-highlights, .vpm-testimonials, .vpm-culture-cards, .vpm-culture-photos {
+        flex-direction: column;
+        align-items: center;
+      }
+      .vpm-hero {
+        min-height: 220px;
+        padding: 2.2rem 1rem 1.5rem 1rem;
+      }
+      .vpm-culture-photo {
+        width: 100%;
+        max-width: 350px;
+        height: 180px;
+      }
+      .vpm-jobs-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="vpm-culture-page" role="main" aria-label="VPM Culture Page">
+    <!-- About VPM -->
+    <section class="vpm-section vpm-hero">
+      <h1>About VPM – Beyond the Content</h1>
+      <p>VPM is more than just the stories we tell. We’re a mission-driven public media organization rooted in community, creativity, and curiosity. We believe in using media to educate, inspire, and connect people across Virginia and beyond.</p>
+      <div class="vpm-leadership-quote">“At VPM, our purpose is to serve, inform, and inspire. We exist to make a difference in the lives of our audience and our team.”<br><span>— CEO, VPM</span></div>
+      <!-- Optionally, embed a video here -->
+      <!-- <div style="margin: 1.5rem auto; max-width: 480px;"><iframe width="100%" height="270" src="https://www.youtube.com/embed/yourvideoid" title="VPM Leadership Message" frameborder="0" allowfullscreen></iframe></div> -->
+    </section>
+
+    <!-- Open Positions -->
+    <section class="vpm-section" aria-label="Open Positions">
+      <div class="vpm-section-title">Open Positions</div>
+      <div class="vpm-jobs-grid">
+        <div class="vpm-job-card">
+          <h3>Digital Content Producer</h3>
+          <div class="vpm-job-meta">Richmond, VA · Content Team</div>
+          <p>Help shape the stories that matter to our community. Collaborate with journalists, editors, and digital teams to create engaging multimedia content.</p>
+          <a href="#" class="vpm-job-apply" target="_blank" rel="noopener">Apply Now</a>
+        </div>
+        <div class="vpm-job-card">
+          <h3>Community Engagement Coordinator</h3>
+          <div class="vpm-job-meta">Remote · Engagement</div>
+          <p>Build relationships with local organizations and help bring VPM’s mission to life through events and outreach.</p>
+          <a href="#" class="vpm-job-apply" target="_blank" rel="noopener">Apply Now</a>
+        </div>
+        <div class="vpm-job-card">
+          <h3>Broadcast Engineer</h3>
+          <div class="vpm-job-meta">Richmond, VA · Engineering</div>
+          <p>Maintain and innovate our broadcast infrastructure to ensure VPM’s content reaches audiences across Virginia and beyond.</p>
+          <a href="#" class="vpm-job-apply" target="_blank" rel="noopener">Apply Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's It Like to Work at VPM? -->
+    <section class="vpm-section">
+      <div class="vpm-section-title">What’s It Like to Work at VPM?</div>
+      <div class="vpm-testimonials">
+        <div class="vpm-testimonial">
+          “People are at the heart of everything we do. I love the sense of community and the shared passion for public service.”
+          <cite>— Jamie, Community Engagement</cite>
+        </div>
+        <div class="vpm-testimonial">
+          “VPM is a place where your ideas matter and your work makes a difference.”
+          <cite>— Alex, Producer</cite>
+        </div>
+        <div class="vpm-testimonial">
+          “There’s always room to grow and innovate here.”
+          <cite>— Morgan, Digital Content</cite>
+        </div>
+      </div>
+      <div class="vpm-culture-highlights">
+        <div class="vpm-culture-highlight">
+          <h3>Creative Freedom</h3>
+          <p>We encourage new ideas and support creative risk-taking in every department.</p>
+        </div>
+        <div class="vpm-culture-highlight">
+          <h3>Supportive Managers</h3>
+          <p>Our leaders are accessible, transparent, and invested in your growth.</p>
+        </div>
+        <div class="vpm-culture-highlight">
+          <h3>Shared Purpose</h3>
+          <p>We’re united by a mission to serve our community and make a difference.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Makes VPM Different? -->
+    <section class="vpm-section">
+      <div class="vpm-section-title">What Makes VPM Different?</div>
+      <div class="vpm-culture-cards">
+        <div class="vpm-culture-card">
+          <h4><span class="vpm-icon" aria-hidden="true">🎥</span>Mission-Driven Storytelling</h4>
+          <p>We use the power of media to inform, educate, and inspire positive change.</p>
+        </div>
+        <div class="vpm-culture-card">
+          <h4><span class="vpm-icon" aria-hidden="true">🤝</span>Culture of Collaboration</h4>
+          <p>Teamwork and open communication are at the core of our success.</p>
+        </div>
+        <div class="vpm-culture-card">
+          <h4><span class="vpm-icon" aria-hidden="true">📚</span>Learning & Development</h4>
+          <p>We offer opportunities for professional growth and continuous learning.</p>
+        </div>
+        <div class="vpm-culture-card">
+          <h4><span class="vpm-icon" aria-hidden="true">🔍</span>Transparent Leadership</h4>
+          <p>Our leaders foster open dialogue and value every voice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- People & Culture at VPM -->
+    <section class="vpm-section">
+      <div class="vpm-section-title">People & Culture at VPM</div>
+      <div class="vpm-culture-cards">
+        <div class="vpm-culture-card">
+          <h4>✨ Employee Resource Groups (ERGs)</h4>
+          <p>ERGs are voluntary, employee-led groups that foster diversity and inclusion. They support underrepresented voices and create a space for connection, growth, and advocacy.<br><br><strong>Active ERGs:</strong> Women@VPM, BIPOC@VPM, LGBTQ+@VPM, Parents@VPM</p>
+        </div>
+        <div class="vpm-culture-card">
+          <h4>🎉 Events & Celebrations</h4>
+          <p>From our annual tailgate to casual team gatherings, we value building relationships beyond our desks.<br><br><em>See photos below!</em></p>
+        </div>
+        <div class="vpm-culture-card">
+          <h4>🤝 Volunteer Opportunities</h4>
+          <p>We support giving back—whether it’s time off to volunteer or company-wide service projects, staff are encouraged to get involved in causes that matter to them.</p>
+        </div>
+      </div>
+      <div class="vpm-culture-photos">
+        <div class="vpm-culture-photo"><img src="https://picsum.photos/seed/vpm1/400/300" alt="Team collaborating in the office"></div>
+        <div class="vpm-culture-photo"><img src="https://picsum.photos/seed/vpm2/400/300" alt="Staff volunteering at a community event"></div>
+        <div class="vpm-culture-photo"><img src="https://picsum.photos/seed/vpm3/400/300" alt="Creative workspace at VPM"></div>
+        <div class="vpm-culture-photo"><img src="https://picsum.photos/seed/vpm4/400/300" alt="Annual tailgate celebration"></div>
+      </div>
+    </section>
+
+    <!-- Why This Page Exists / Call to Action -->
+    <section class="vpm-section vpm-cta-section">
+      <h3>Why This Page Exists</h3>
+      <p>This page is a resource for prospective employees to learn what it’s really like to work at VPM. We want candidates to get a true sense of who we are, what we stand for, and the kind of environment they’d be joining.</p>
+      <a href="#" target="_blank" rel="noopener">Explore Open Positions</a>
+      <br><br>
+      <a href="#" target="_blank" rel="noopener" style="font-size:0.98em; text-decoration:underline; background:none; color:#fff; margin-top:0.5em;">Read our Mission Statement</a>
+    </section>
+  </div>
+</body>
+</html>
