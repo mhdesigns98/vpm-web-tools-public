@@ -9,42 +9,57 @@ function getTitle(name) {
     const html = fs.readFileSync(path.join(PROTOTYPES_DIR, name, 'index.html'), 'utf8');
     const match = html.match(/<title[^>]*>([^<]+)<\/title>/i);
     return match ? match[1].trim() : name;
-  } catch {
-    return name;
-  }
+  } catch { return name; }
 }
 
 function getDescription(name) {
   try {
     const html = fs.readFileSync(path.join(PROTOTYPES_DIR, name, 'index.html'), 'utf8');
-    const match = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i)
-      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i);
-    return match ? match[1].trim() : '';
-  } catch {
-    return '';
-  }
+    const m = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i)
+           || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i);
+    return m ? m[1].trim() : '';
+  } catch { return ''; }
 }
 
 function getMtime(name) {
-  try {
-    return fs.statSync(path.join(PROTOTYPES_DIR, name, 'index.html')).mtime;
-  } catch {
-    return new Date(0);
-  }
+  try { return fs.statSync(path.join(PROTOTYPES_DIR, name, 'index.html')).mtime; }
+  catch { return new Date(0); }
+}
+
+function hasScreenshot(name) {
+  return fs.existsSync(path.join(PROTOTYPES_DIR, name, 'screenshot.png'));
+}
+
+function formatDate(d) {
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 const prototypes = fs.readdirSync(PROTOTYPES_DIR, { withFileTypes: true })
   .filter(d => d.isDirectory() && fs.existsSync(path.join(PROTOTYPES_DIR, d.name, 'index.html')))
-  .map(d => ({ slug: d.name, title: getTitle(d.name), desc: getDescription(d.name), mtime: getMtime(d.name) }))
-  .sort((a, b) => b.mtime - a.mtime); // newest first
+  .map(d => ({
+    slug: d.name,
+    title: getTitle(d.name),
+    desc: getDescription(d.name),
+    mtime: getMtime(d.name),
+    screenshot: hasScreenshot(d.name),
+  }))
+  .sort((a, b) => b.mtime - a.mtime);
 
 const [latest, ...rest] = prototypes;
+
+function previewEl(p, size = 'hero') {
+  if (p.screenshot) {
+    return `<img src="./${p.slug}/screenshot.png" alt="${p.title}" loading="lazy" class="preview-img">`;
+  }
+  // Placeholder when screenshot hasn't been generated yet
+  return `<div class="preview-placeholder"><span>Preview generates on deploy</span></div>`;
+}
 
 const heroSection = latest ? `
   <section class="hero">
     <div class="hero-meta">
       <span class="badge">Latest</span>
-      <span class="hero-slug">${latest.slug}</span>
+      <span class="hero-date">${formatDate(latest.mtime)}</span>
     </div>
     <h1 class="hero-title">${latest.title !== latest.slug ? latest.title : latest.slug}</h1>
     ${latest.desc ? `<p class="hero-desc">${latest.desc}</p>` : ''}
@@ -54,24 +69,24 @@ const heroSection = latest ? `
         <div class="browser-dots"><span></span><span></span><span></span></div>
         <div class="browser-bar">${latest.slug}/</div>
       </div>
-      <div class="browser-viewport">
-        <iframe src="./${latest.slug}/" loading="lazy" title="${latest.title}" scrolling="no"></iframe>
+      <div class="browser-viewport hero-viewport">
+        ${previewEl(latest, 'hero')}
       </div>
     </div>
   </section>` : '';
 
 const otherCards = rest.length ? `
   <section class="archive">
-    <h2 class="archive-heading">All prototypes</h2>
+    <h2 class="archive-heading">All prototypes <span class="archive-count">${rest.length}</span></h2>
     <div class="card-grid">
       ${rest.map(p => `
       <a class="card" href="./${p.slug}/" target="_blank">
-        <div class="card-preview">
-          <iframe src="./${p.slug}/" loading="lazy" tabindex="-1" title="${p.title}" scrolling="no"></iframe>
+        <div class="card-viewport">
+          ${previewEl(p, 'card')}
         </div>
         <div class="card-info">
-          <span class="card-name">${p.slug}</span>
-          <span class="card-title">${p.title !== p.slug ? p.title : ''}</span>
+          <span class="card-title">${p.title !== p.slug ? p.title : p.slug}</span>
+          <span class="card-date">${formatDate(p.mtime)}</span>
         </div>
       </a>`).join('\n')}
     </div>
@@ -101,7 +116,7 @@ const html = `<!DOCTYPE html>
       --amber:     #f0b429;
       --amber-dim: #7a5c14;
       --violet:    #a78bfa;
-      --violet-dim:#4c3d7a;
+      --violet-dim:#3d2f72;
       --green:     #34d399;
     }
 
@@ -115,14 +130,12 @@ const html = `<!DOCTYPE html>
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Header ── */
     header {
       padding: 20px 32px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
     }
 
     .wordmark {
@@ -146,7 +159,6 @@ const html = `<!DOCTYPE html>
       padding: 3px 10px;
     }
 
-    /* ── Layout ── */
     main {
       max-width: 1100px;
       margin: 0 auto;
@@ -154,9 +166,7 @@ const html = `<!DOCTYPE html>
     }
 
     /* ── Hero ── */
-    .hero {
-      margin-bottom: 64px;
-    }
+    .hero { margin-bottom: 64px; }
 
     .hero-meta {
       display: flex;
@@ -176,14 +186,13 @@ const html = `<!DOCTYPE html>
       padding: 3px 8px;
     }
 
-    .hero-slug {
-      font-family: ui-monospace, Menlo, monospace;
+    .hero-date {
       font-size: 12px;
       color: var(--dim);
     }
 
     .hero-title {
-      font-size: clamp(24px, 4vw, 40px);
+      font-size: clamp(22px, 4vw, 38px);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.15;
@@ -235,17 +244,9 @@ const html = `<!DOCTYPE html>
       border-bottom: 1px solid var(--border);
     }
 
-    .browser-dots {
-      display: flex;
-      gap: 5px;
-      flex-shrink: 0;
-    }
+    .browser-dots { display: flex; gap: 5px; flex-shrink: 0; }
     .browser-dots span {
-      display: block;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--border);
+      display: block; width: 9px; height: 9px; border-radius: 50%;
     }
     .browser-dots span:nth-child(1) { background: #f87171; }
     .browser-dots span:nth-child(2) { background: #fbbf24; }
@@ -266,32 +267,34 @@ const html = `<!DOCTYPE html>
 
     .browser-viewport {
       position: relative;
-      height: 480px;
       overflow: hidden;
-      pointer-events: none;
     }
 
-    .browser-viewport iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1440px;
-      height: 960px;
-      border: none;
-      transform: scale(0.5);
-      transform-origin: top left;
+    .hero-viewport {
+      max-height: 520px;
     }
 
-    /* fade out bottom to suggest more content */
-    .browser-viewport::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 120px;
-      background: linear-gradient(to bottom, transparent, var(--surface));
-      pointer-events: none;
+    .preview-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .hero-viewport .preview-img {
+      max-height: 520px;
+      object-fit: cover;
+    }
+
+    .preview-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 320px;
+      background: var(--surface-hi);
+      color: var(--dim);
+      font-size: 12px;
     }
 
     /* ── Archive ── */
@@ -302,11 +305,25 @@ const html = `<!DOCTYPE html>
       text-transform: uppercase;
       color: var(--dim);
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .archive-count {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0;
+      font-weight: 600;
     }
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 16px;
     }
 
@@ -318,73 +335,63 @@ const html = `<!DOCTYPE html>
       text-decoration: none;
       color: inherit;
       background: var(--surface);
-      transition: border-color 120ms, box-shadow 120ms, transform 100ms;
+      transition: border-color 140ms, box-shadow 140ms, transform 120ms;
     }
     .card:hover {
       border-color: var(--violet-dim);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
       transform: translateY(-2px);
     }
 
-    .card-preview {
-      position: relative;
-      height: 160px;
+    .card-viewport {
+      height: 180px;
       overflow: hidden;
       background: var(--surface-hi);
-      pointer-events: none;
+      position: relative;
     }
 
-    .card-preview iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 960px;
-      height: 640px;
-      border: none;
-      transform: scale(0.29);
-      transform-origin: top left;
+    .card-viewport .preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
     }
 
-    .card-preview::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: linear-gradient(to bottom, transparent, var(--surface-hi));
+    .card-viewport .preview-placeholder {
+      height: 180px;
     }
 
     .card-info {
       padding: 12px 14px;
       border-top: 1px solid var(--border);
       display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .card-name {
-      font-family: ui-monospace, Menlo, monospace;
-      font-size: 12px;
-      color: var(--violet);
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
     }
 
     .card-title {
-      font-size: 12px;
-      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* ── Empty ── */
+    .card-date {
+      font-size: 11px;
+      color: var(--dim);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
     .empty { color: var(--dim); font-size: 14px; padding: 32px 0; }
 
     @media (max-width: 600px) {
       header { padding: 16px 20px; }
       main { padding: 32px 20px 56px; }
-      .browser-viewport { height: 300px; }
-      .browser-viewport iframe { width: 900px; height: 600px; transform: scale(0.333); }
+      .hero-viewport { max-height: 280px; }
     }
 
     @media (prefers-reduced-motion: reduce) {

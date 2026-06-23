@@ -1,0 +1,12 @@
+{
+  "name": "vpm-web-tools-public",
+  "private": true,
+  "scripts": {
+    "screenshots": "node .github/scripts/screenshot.js",
+    "build": "node .github/scripts/screenshot.js && node .github/scripts/build-index.js",
+    "index": "node .github/scripts/build-index.js"
+  },
+  "dependencies": {
+    "puppeteer": "^22.0.0"
+  }
+}
